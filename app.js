@@ -2,7 +2,7 @@ document.title = 'आमंत्रण';
 
 const defaults = {
   groom: 'आकाश', bride: 'वैष्णवी', note: 'आपल्या प्रेमळ उपस्थितीची अपेक्षा आहे.',
-  welcomeKicker: 'शुभ मंगल सावधान', welcomeTitle: 'आमच्या शुभविवाहाचे हार्दिक आमंत्रण', welcomeCopy: 'तुमच्या उपस्थितीने आमचा आनंद द्विगुणित होईल.',
+  welcomeKicker: 'शुभ मंगल सावधान', welcomeTitle: ' - परिवार आपले सहर्ष स्वागत करीत आहे', welcomeCopy: 'तुमच्या उपस्थितीने आमचा आनंद द्विगुणित होईल.',
   logoInitialLeft: 'अ', logoInitialRight: 'व', surname: 'SHUBH VIVAH', shareUrl: '', couplePhoto: '', weddingBackground: '',
   parents: { title:'आई व वडील', symbol:'♡', fields:[['नावे','श्री. व सौ. आपले नाव']] },
   venue: { title:'विवाह स्थळ', symbol:'⌂', fields:[['स्थळाचे नाव','आपले विवाह स्थळ'],['पूर्ण पत्ता','येथे पूर्ण पत्ता लिहा']], coordinates:{ latitude:'', longitude:'' } },
@@ -186,7 +186,7 @@ $('#adminForm').addEventListener('submit', async event => {
   const password = $('#adminPassword').value;
   $('#loginError').classList.add('hidden');
   try {
-    await firebase.auth().signInWithEmailAndPassword(auth, email, password);
+    await firebase.signInWithEmailAndPassword(email, password);
     $('#adminPassword').value = '';
     $('#adminScreen').classList.add('hidden');
     $('#welcomeScreen').classList.remove('hidden');
@@ -229,10 +229,13 @@ function initialiseFirebaseAuth() {
   try {
     if (!window.firebase || !window.FIREBASE_CONFIG) throw new Error('Firebase configuration is missing.');
     if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
-    firebase.auth().onAuthStateChanged(auth,(user) => {
-      setAdminMode(!!user);
-      if (user) console.log('Admin signed in:', user.email);
-    });
+   firebase.auth().onAuthStateChanged((user) => {
+  setAdminMode(!!user);
+
+  if (user) {
+    console.log('Admin signed in:', user.email);
+  }
+ });
   } catch (error) {
     console.error('Firebase Authentication initialization failed:', error);
   }
