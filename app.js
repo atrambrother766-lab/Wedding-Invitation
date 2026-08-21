@@ -186,7 +186,7 @@ $('#adminForm').addEventListener('submit', async event => {
   const password = $('#adminPassword').value;
   $('#loginError').classList.add('hidden');
   try {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
+    await firebase.auth().signInWithEmailAndPassword(auth, email, password);
     $('#adminPassword').value = '';
     $('#adminScreen').classList.add('hidden');
     $('#welcomeScreen').classList.remove('hidden');
