@@ -229,7 +229,7 @@ function initialiseFirebaseAuth() {
   try {
     if (!window.firebase || !window.FIREBASE_CONFIG) throw new Error('Firebase configuration is missing.');
     if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(auth,(user) => {
       setAdminMode(!!user);
       if (user) console.log('Admin signed in:', user.email);
     });
